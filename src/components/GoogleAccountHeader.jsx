@@ -43,7 +43,7 @@ export default function GoogleAccountHeader({
             <span aria-hidden="true">G</span>
             Sign in with Google
           </button>
-          {!isConfigured && <p>Set VITE_GOOGLE_CLIENT_ID to enable Google sync.</p>}
+          {!isConfigured && <p>Google sign-in is being configured.</p>}
         </>
       )}
 
