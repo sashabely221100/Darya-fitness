@@ -1,8 +1,6 @@
 const FITNESS_DATA_FILE = "darya-fitness-progress.json";
 const FITNESS_DATA_MIME = "application/json";
 const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
-const PROFILE_SCOPE = "openid email profile";
-const GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
 const DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files";
 const DRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 
@@ -50,7 +48,7 @@ export async function requestGoogleAccess() {
     const tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: clientId,
       prompt: "consent",
-      scope: `${PROFILE_SCOPE} ${DRIVE_SCOPE}`,
+      scope: DRIVE_SCOPE,
       callback: (response) => {
         if (response.error) {
           reject(new Error(response.error));
@@ -63,20 +61,6 @@ export async function requestGoogleAccess() {
 
     tokenClient.requestAccessToken();
   });
-}
-
-export async function getGoogleProfile(accessToken) {
-  const response = await fetch(GOOGLE_USERINFO_URL, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Google profile load failed: ${response.status}`);
-  }
-
-  return response.json();
 }
 
 async function findFitnessDataFile(accessToken) {

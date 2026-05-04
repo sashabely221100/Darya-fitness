@@ -7,7 +7,6 @@ import WorkoutSetupScreen from "./components/WorkoutSetupScreen.jsx";
 import WeeklyPlan from "./components/WeeklyPlan.jsx";
 import { weeklyPlan } from "./data/workouts.js";
 import {
-  getGoogleProfile,
   hasGoogleClientId,
   loadFitnessDataFromGoogle,
   requestGoogleAccess,
@@ -111,12 +110,11 @@ export default function App() {
 
     try {
       const accessToken = await requestGoogleAccess();
-      const profile = await getGoogleProfile(accessToken);
       const user = {
-        email: profile.email,
-        id: profile.sub,
-        name: profile.name,
-        picture: profile.picture
+        email: "Google Drive connected",
+        id: "google-drive",
+        name: "Google account",
+        picture: ""
       };
       const remoteData = await loadFitnessDataFromGoogle(accessToken);
 
